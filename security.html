@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>document.documentElement.classList.add('js');</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Privacy architecture — Vigrel</title>
+<meta name="description" content="How Vigrel keeps your work on your machine: local inference, local memory, local speech, and an honest account of what still leaves the device.">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><canvas class="brand-mark" id="mark-canvas" aria-hidden="true"></canvas><span class="brand-name">Vigrel</span></a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="features.html">Features</a>
+      <a href="models.html">Models</a>
+      <a href="security.html" aria-current="page">Privacy</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="download.html">Download</a>
+      <a href="docs.html">Docs</a>
+      <a class="btn small nav-cta" href="download.html">Start trial</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" style="padding:0">
+    <div class="wrap" style="padding:78px 0 54px;position:relative;z-index:2">
+      <p class="eyebrow">Privacy architecture</p>
+      <h1>The model is local. <em>So is the argument.</em></h1>
+      <p class="lede" style="margin-top:18px">Most assistants promise not to store your data. Vigrel removes the server that
+        could. This page describes the architecture, not the policy — and it is specific about the few
+        moments when bytes do leave.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">On the machine</p>
+      <h2>What runs where</h2>
+      <div class="grid-3" style="margin-top:26px">
+        <div class="card">
+          <h3>Inference</h3>
+          <p><span class="mono">llama-server</span> bound to <span class="mono">127.0.0.1</span>. The weights are
+             a file on your disk. There is no inference endpoint to call and no API key to leak.</p>
+        </div>
+        <div class="card">
+          <h3>Speech</h3>
+          <p>Whisper transcribes locally; Kokoro synthesises locally. Audio is processed in memory and
+             discarded — there is no recording folder.</p>
+        </div>
+        <div class="card">
+          <h3>Memory</h3>
+          <p>A SQLite file in <span class="mono">~/.jarvis</span>. Facts, sessions and projects live there.
+             Inspect it, export it, or delete it — the app does not hold a second copy anywhere.</p>
+        </div>
+      </div>
+      <div class="note reveal" style="margin-top:26px">
+        <strong>Loopback only.</strong> The engine listens on <span class="mono">127.0.0.1:8765</span>, the brain on
+        <span class="mono">:28090</span>, audio on <span class="mono">:28120</span>. Nothing binds to a public
+        interface, so another machine on your network cannot reach them either.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Egress</p>
+      <h2>The complete list of what can leave</h2>
+      <p class="sub">Everything here is either initiated by you or disabled by configuration. There is no
+        background sync, no telemetry SDK, no crash uploader, no analytics.</p>
+      <div class="table-wrap reveal">
+        <table>
+          <thead><tr><th>Event</th><th>What is sent</th><th>When</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td><b>Model download</b></td><td>An HTTPS GET for weights</td><td>First run, if you choose a model</td><td>Opt-in, one time</td></tr>
+            <tr><td><b>Skill pack download</b></td><td>An HTTPS GET for the pack</td><td>When you install a pack</td><td>Opt-in</td></tr>
+            <tr><td><b>Research skill</b></td><td>The query you typed</td><td>When you use that skill</td><td>Off unless the pack is installed</td></tr>
+            <tr><td><b>Cloud add-on</b></td><td>The prompt window for one turn</td><td>Only when local inference is unavailable or you ask for it</td><td>Not installed by default</td></tr>
+            <tr><td><b>Update check</b></td><td>Nothing</td><td>—</td><td>None in the beta: updates are manual downloads</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small" style="margin-top:14px">That is the whole list. If a future feature needs the network, it will appear in this
+        table before it ships.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="grid-2">
+        <div>
+          <p class="eyebrow">Cloud add-on</p>
+          <h2>Stateless compute, not a data store</h2>
+          <p>The optional cloud tier moves the arithmetic, not the archive. A request carries the prompt
+             window needed for that turn. The server has no conversation table, no prompt log and no
+             training pipeline; it returns tokens and forgets the request.</p>
+          <ul class="faq" style="border:0">
+            <li style="list-style:none;padding:7px 0;color:var(--muted)">Memory and history stay on the device.</li>
+            <li style="list-style:none;padding:7px 0;color:var(--muted)">Only the current turn's prompt is transmitted.</li>
+            <li style="list-style:none;padding:7px 0;color:var(--muted)">No account identity is required to process a request.</li>
+            <li style="list-style:none;padding:7px 0;color:var(--muted)">If the network is down, it falls back to the local model.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow">Later</p>
+          <h2>Encrypted sync, when multi-device demands it</h2>
+          <p>If sync ships, it ships as ciphertext: a key derived from your passphrase on the device, AES-256-GCM
+             before upload, and an opaque blob on the server. We would hold a file we cannot read — and deletion
+             would be crypto-shredding rather than a row delete.</p>
+          <p class="small">It is not built yet. It is described here so the architecture is not a surprise later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="security">
+    <div class="wrap">
+      <p class="eyebrow">Honest limits</p>
+      <h2>What local does not fix</h2>
+      <div class="grid-3" style="margin-top:26px">
+        <div class="card">
+          <h3>It runs with your privileges</h3>
+          <p>Point it at a script and it can run the script. Approvals are real approvals. Keep backups, and
+             do not hand it a shell you would not hand a colleague.</p>
+        </div>
+        <div class="card">
+          <h3>The model can be wrong</h3>
+          <p>Confidently. Arithmetic, file contents and live data are answered by tools rather than the model
+             for exactly that reason — but prose can still be mistaken.</p>
+        </div>
+        <div class="card">
+          <h3>Your disk is the boundary</h3>
+          <p>Full-disk encryption, a locked screen and a separate account matter more here than they do with
+             a cloud assistant, because the data is genuinely on your drive.</p>
+        </div>
+      </div>
+      <div class="note" style="margin-top:26px">
+        <strong>One more, specific to this machine class.</strong> A large model at the edge of a machine's
+        memory can starve the audio stack of wired memory; macOS then refuses to start audio streams and the
+        app falls back to the system voice. That is a hardware ceiling, not a privacy flaw — and it is why
+        the tier table is conservative.
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><canvas class="brand-mark" aria-hidden="true"></canvas><span class="brand-name">Vigrel</span></a>
+        <p class="small" style="margin-top:14px;max-width:34ch">A private AI operator. Local inference, local memory, local speech.</p>
+      </div>
+      <div><h4>Product</h4><a href="features.html">Features</a><a href="models.html">Models &amp; specs</a><a href="pricing.html">Pricing</a><a href="download.html">Download</a></div>
+      <div><h4>Trust</h4><a href="security.html">Privacy architecture</a><a href="docs.html#security">Security notes</a><a href="docs.html#data">Your data</a></div>
+      <div><h4>Resources</h4><a href="docs.html">Documentation</a><a href="models.html#requirements">Requirements</a><a href="docs.html#troubleshooting">Troubleshooting</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Vigrel. Pre-release software.</span><span>No cookies are set by this site.</span></div>
+  </div>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/mark-viz.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

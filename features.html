@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>document.documentElement.classList.add('js');</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Features — Vigrel</title>
+<meta name="description" content="Voice dialogue, local memory, real builds, screen vision, skill packs and offline operation — measured on real hardware.">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><canvas class="brand-mark" id="mark-canvas" aria-hidden="true"></canvas><span class="brand-name">Vigrel</span></a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="features.html" aria-current="page">Features</a>
+      <a href="models.html">Models</a>
+      <a href="security.html">Privacy</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="download.html">Download</a>
+      <a href="docs.html">Docs</a>
+      <a class="btn small nav-cta" href="download.html">Start trial</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" style="padding:0">
+    <div class="wrap" style="padding:78px 0 54px;position:relative;z-index:2">
+      <p class="eyebrow">Features</p>
+      <h1>Everything runs <em>here</em>.</h1>
+      <p class="lede" style="margin-top:18px">Six capabilities, each exercised on a real machine and a real conversation.
+        No feature below requires an account, an API key, or a network connection.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div class="row-copy">
+          <p class="eyebrow">01 · Voice</p>
+          <h3>A conversation with a beginning, a middle and an end.</h3>
+          <p>Press the microphone, speak naturally, and Vigrel answers in a British butler's register.
+             It holds the thread across turns, waits for you to finish, and stops the moment you ask it to.</p>
+          <ul>
+            <li>Local transcription — audio is processed on the machine and discarded</li>
+            <li>End-of-speech detection at 700 ms rather than a fixed timer</li>
+            <li>Echo guard: while it speaks, its own input is ducked so it cannot answer itself</li>
+            <li>The toggle means what it says — off is silent, not "quietly listening"</li>
+          </ul>
+        </div>
+        <div class="row-media">
+          <div class="plate">
+            <div class="plate-head">Vigrel · voice</div>
+            <div class="plate-body">
+              <div class="wave" aria-hidden="true">
+                <i style="animation-delay:0s"></i><i style="animation-delay:.07s"></i><i style="animation-delay:.14s"></i><i style="animation-delay:.21s"></i><i style="animation-delay:.28s"></i><i style="animation-delay:.35s"></i><i style="animation-delay:.42s"></i><i style="animation-delay:.49s"></i><i style="animation-delay:.56s"></i><i style="animation-delay:.63s"></i><i style="animation-delay:.7s"></i><i style="animation-delay:.77s"></i><i style="animation-delay:.84s"></i><i style="animation-delay:.91s"></i><i style="animation-delay:.98s"></i><i style="animation-delay:1.05s"></i><i style="animation-delay:1.12s"></i><i style="animation-delay:1.19s"></i><i style="animation-delay:1.26s"></i><i style="animation-delay:1.33s"></i>
+              </div>
+              <div class="plate-line"><span>Turn</span><span class="mono">speech end → reply ≈ 3 s</span></div>
+              <div class="plate-line"><span>Voice</span><span class="mono">bm_lewis · Kokoro</span></div>
+              <div class="plate-line"><span>Network</span><span class="mono">0 bytes</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row flip">
+        <div class="row-copy">
+          <p class="eyebrow">02 · Memory</p>
+          <h3>It remembers the work, not just the words.</h3>
+          <p>Facts you state, projects you start, decisions you make and the exchanges themselves are
+             written to a local SQLite database. Each spoken turn carries the recent conversation with it,
+             so "what did we decide about the firewall?" resolves without you repeating yourself.</p>
+          <ul>
+            <li>Durable facts, session state and project history in one file</li>
+            <li>Inspect it with any SQLite browser; delete it with one command</li>
+            <li>Never inferred from background chatter — names only when you give them</li>
+          </ul>
+        </div>
+        <div class="row-media">
+          <div class="plate">
+            <div class="plate-head">~/.jarvis/long_term_memory.db</div>
+            <div class="plate-body term">
+              <div class="mem-node"><span class="pill gold">fact</span> prefers direct answers, no preamble</div>
+              <div class="mem-node"><span class="pill cyan">project</span> site survey · 14 assets · 3 sessions</div>
+              <div class="mem-node"><span class="pill">turn</span> “summarise what changed since Tuesday”</div>
+              <div class="mem-node"><span class="pill ok">local</span> export · shred · inspect</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-copy">
+          <p class="eyebrow">03 · Builds</p>
+          <h3>It writes files, opens them, and checks the result.</h3>
+          <p>Ask for a multi-page site, a document or a small tool. Vigrel plans the structure, writes the
+             files to disk, opens the result and verifies it — then tells you where it is. A build that
+             fails says so instead of claiming success.</p>
+          <ul>
+            <li>Multi-page output with working navigation, not a single landing page</li>
+            <li>Verification step before it reports back</li>
+            <li>Runs in a queue: start a build, keep talking</li>
+          </ul>
+        </div>
+        <div class="row-media">
+          <div class="plate">
+            <div class="plate-head">build · site</div>
+            <div class="plate-body term">
+              <div><b>›</b> plan: 4 pages, shared stylesheet</div>
+              <div><b>›</b> write: index.html features.html pricing.html contact.html</div>
+              <div><b>›</b> write: assets/style.css</div>
+              <div><b>›</b> verify: links resolve <span class="ok">ok</span></div>
+              <div><b>›</b> verify: renders 1440×900 <span class="ok">ok</span></div>
+              <div><b>›</b> open: ~/Vigrel/builds/site/index.html</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row flip">
+        <div class="row-copy">
+          <p class="eyebrow">04 · Vision</p>
+          <h3>Look at my screen — only when asked.</h3>
+          <p>One keystroke captures the current display, describes what matters, and answers questions about
+             it. The frame is processed locally and never stored: there is no screenshot folder and no
+             upload path.</p>
+          <ul>
+            <li>Invoked explicitly, never in the background</li>
+            <li>Useful for error dialogs, dashboards and configuration screens</li>
+            <li>Available on tiers with the vision projection installed</li>
+          </ul>
+        </div>
+        <div class="row-media">
+          <div class="plate">
+            <div class="plate-head">screen · on demand</div>
+            <div class="plate-body">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div style="border:1px solid var(--line);border-radius:10px;padding:14px;background:linear-gradient(135deg,rgba(90,210,240,.08),transparent)">
+                  <div class="small">capture</div>
+                  <div style="font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-top:6px">1440×900 · local buffer</div>
+                </div>
+                <div style="border:1px solid var(--line);border-radius:10px;padding:14px;background:linear-gradient(135deg,rgba(217,169,95,.08),transparent)">
+                  <div class="small">analysis</div>
+                  <div style="font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-top:6px">“the modal reports a certificate error”</div>
+                </div>
+              </div>
+              <div class="plate-line" style="margin-top:12px"><span>Stored</span><span class="mono">nothing</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Measured, not claimed</p>
+          <h2>Numbers from a real machine</h2>
+          <p class="sub">M1 Max, 32 GB, 4K context, one prompt, no other model resident.</p>
+        </div>
+      </div>
+      <div class="table-wrap reveal">
+        <table>
+          <thead><tr><th>Measure</th><th>Result</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>35B reply speed</td><td><b>52.5 tok/s</b></td><td>mixture-of-experts, 3B active per token</td></tr>
+            <tr><td>14B reply speed</td><td><b>22.4 tok/s</b></td><td>dense model; slower but fits smaller machines</td></tr>
+            <tr><td>8B reply speed</td><td><b>42.6 tok/s</b></td><td>dense; the lightest footprint</td></tr>
+            <tr><td>Model load</td><td><b>4–13 s</b></td><td>8B 4 s · 14B 8 s · 35B 13 s</td></tr>
+            <tr><td>Spoken turn</td><td><b>≈3 s</b></td><td>speech end → first audio, warm</td></tr>
+            <tr><td>Utterance cutoff</td><td><b>700 ms</b></td><td>end-of-speech, not a fixed window</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap grid-2">
+      <div>
+        <h2>What it is</h2>
+        <ul class="faq" style="border:0">
+          <li style="list-style:none;padding:8px 0;color:var(--muted)">A private operator with hands on your machine.</li>
+          <li style="list-style:none;padding:8px 0;color:var(--muted)">A conversationalist with memory and a consistent voice.</li>
+          <li style="list-style:none;padding:8px 0;color:var(--muted)">A builder that writes, verifies and opens real files.</li>
+          <li style="list-style:none;padding:8px 0;color:var(--muted)">A tool that works with the network cable pulled out.</li>
+        </ul>
+      </div>
+      <div>
+        <h2>What it is not</h2>
+        <ul class="faq" style="border:0">
+          <li style="list-style:none;padding:8px 0;color:var(--muted)">Not a browser tab, and not a wrapper around someone else's API.</li>
+          <li style="list-style:none;padding:8px 0;color:var(--muted)">Not an always-on listener.</li>
+          <li style="list-style:none;padding:8px 0;color:var(--muted)">Not a chatbot with a personality bolted on.</li>
+          <li style="list-style:none;padding:8px 0;color:var(--muted)">Not a cloud service with a desktop icon.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><canvas class="brand-mark" aria-hidden="true"></canvas><span class="brand-name">Vigrel</span></a>
+        <p class="small" style="margin-top:14px;max-width:34ch">A private AI operator. Local inference, local memory, local speech.</p>
+      </div>
+      <div><h4>Product</h4><a href="features.html">Features</a><a href="models.html">Models &amp; specs</a><a href="pricing.html">Pricing</a><a href="download.html">Download</a></div>
+      <div><h4>Trust</h4><a href="security.html">Privacy architecture</a><a href="docs.html#security">Security notes</a><a href="docs.html#data">Your data</a></div>
+      <div><h4>Resources</h4><a href="docs.html">Documentation</a><a href="models.html#requirements">Requirements</a><a href="docs.html#troubleshooting">Troubleshooting</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Vigrel. Pre-release software.</span><span>No cookies are set by this site.</span></div>
+  </div>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/mark-viz.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

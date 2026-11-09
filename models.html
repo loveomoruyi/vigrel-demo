@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>document.documentElement.classList.add('js');</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Models &amp; specifications — Vigrel</title>
+<meta name="description" content="Vigrel model tiers: 8B, 14B and 35B mixture-of-experts, with measured memory, speed and hardware requirements.">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><canvas class="brand-mark" id="mark-canvas" aria-hidden="true"></canvas><span class="brand-name">Vigrel</span></a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="features.html">Features</a>
+      <a href="models.html" aria-current="page">Models</a>
+      <a href="security.html">Privacy</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="download.html">Download</a>
+      <a href="docs.html">Docs</a>
+      <a class="btn small nav-cta" href="download.html">Start trial</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" style="padding:0">
+    <div class="wrap" style="padding:78px 0 54px;position:relative;z-index:2">
+      <p class="eyebrow">Specifications</p>
+      <h1>Three models. One decision: <em>what fits</em>.</h1>
+      <p class="lede" style="margin-top:18px">Vigrel picks its model from your hardware. Every figure here was measured on an
+        M1 Max with 32 GB — load time, resident memory and tokens per second — not taken from a datasheet.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="table-wrap reveal">
+        <table>
+          <thead>
+            <tr><th>Tier</th><th>Model</th><th>Weights on disk</th><th>Resident memory</th><th>Speed (measured)</th><th>Model load</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Core</b></td>
+              <td>Qwen3-8B · Q4</td>
+              <td>5.0 GB</td>
+              <td>5.4 GB</td>
+              <td><b>43.2 tok/s</b></td>
+              <td>4 s</td>
+            </tr>
+            <tr>
+              <td><b>Pro</b></td>
+              <td>Qwen2.5-14B-Instruct · Q4</td>
+              <td>9.0 GB</td>
+              <td>9.1 GB</td>
+              <td><b>24.9 tok/s</b></td>
+              <td>8 s</td>
+            </tr>
+            <tr>
+              <td><b>Studio</b></td>
+              <td>Qwen3.6-35B-A3B · Q4 (mixture of experts)</td>
+              <td>22.4 GB</td>
+              <td>22.5 GB</td>
+              <td><b>52.5 tok/s</b></td>
+              <td>13 s</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small" style="margin-top:14px">Speed measured with a 120-token completion at 4K context, one model resident, on an M1 Max 32 GB. The app picks the tier from installed memory — 16 GB gets the 8B, 24 GB the 14B, 32 GB and above the 35B — and a Core licence is limited to the first two.
+        Dense models activate every parameter per token; the 35B activates 3B of 35B, which is why it is both
+        the most capable and the fastest on this hardware.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow" id="requirements">Hardware requirements</p>
+      <h2>What each tier needs</h2>
+      <p class="sub">Unified memory on Apple Silicon, VRAM on Windows and Linux. Leave room for the operating
+        system, the app and — on machines with voice enabled — the audio stack.</p>
+      <div class="table-wrap reveal">
+        <table>
+          <thead><tr><th>Tier</th><th>Apple Silicon</th><th>Windows / Linux</th><th>Disk for model</th><th>Comfortable when</th></tr></thead>
+          <tbody>
+            <tr><td><b>Core · 8B</b></td><td>16 GB unified</td><td>8 GB VRAM or 16 GB RAM (CPU)</td><td>5 GB</td><td>16 GB machine, voice only, light builds</td></tr>
+            <tr><td><b>Pro · 14B</b></td><td>24 GB unified</td><td>12 GB VRAM or 32 GB RAM (CPU)</td><td>9 GB</td><td>24 GB machine, documents and code</td></tr>
+            <tr><td><b>Studio · 35B</b></td><td>36 GB unified or more</td><td>24 GB VRAM</td><td>23 GB</td><td>36–64 GB machine, builds and vision</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="note reveal">
+        <strong>The 32 GB caveat, stated plainly.</strong> A 35B model at 22.5 GB on a 32 GB machine leaves
+        too little headroom for the operating system and audio. It runs, and it is fast, but on a 32 GB Mac
+        the honest configuration is <strong>Pro (14B)</strong>, or <strong>Studio with cloud burst</strong>.
+        Studio is specified at 36 GB and above for that reason, not to upsell.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Choosing</p>
+      <h2>A two-line decision</h2>
+      <div class="grid-2" style="margin-top:26px">
+        <div class="card">
+          <h3>If your machine has 16–24 GB</h3>
+          <p>Choose <b>Core</b> or <b>Pro</b>. Voice, memory, documents and code all work. Builds are
+             slower but real. Nothing is crippled, nothing is a trial.</p>
+        </div>
+        <div class="card">
+          <h3>If your machine has 36 GB or more</h3>
+          <p>Choose <b>Studio</b>. The mixture-of-experts model is both faster and broader: agentic builds,
+             vision, and long context without strain.</p>
+        </div>
+        <div class="card">
+          <h3>If your machine is thin, or the task is heavy</h3>
+          <p>Choose the <b>Cloud</b> add-on. Compute runs remotely, the conversation and memory stay local,
+             and nothing is stored server-side.</p>
+        </div>
+        <div class="card">
+          <h3>If you are air-gapped</h3>
+          <p>Choose any local tier. All three run with no network path. The cloud add-on is simply not
+             installed on those sites.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><canvas class="brand-mark" aria-hidden="true"></canvas><span class="brand-name">Vigrel</span></a>
+        <p class="small" style="margin-top:14px;max-width:34ch">A private AI operator. Local inference, local memory, local speech.</p>
+      </div>
+      <div><h4>Product</h4><a href="features.html">Features</a><a href="models.html">Models &amp; specs</a><a href="pricing.html">Pricing</a><a href="download.html">Download</a></div>
+      <div><h4>Trust</h4><a href="security.html">Privacy architecture</a><a href="docs.html#security">Security notes</a><a href="docs.html#data">Your data</a></div>
+      <div><h4>Resources</h4><a href="docs.html">Documentation</a><a href="models.html#requirements">Requirements</a><a href="docs.html#troubleshooting">Troubleshooting</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Vigrel. Pre-release software.</span><span>No cookies are set by this site.</span></div>
+  </div>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/mark-viz.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

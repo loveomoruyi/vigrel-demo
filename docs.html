@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>document.documentElement.classList.add('js');</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Documentation — Vigrel</title>
+<meta name="description" content="Install Vigrel on macOS, Windows and Linux, choose a model tier, use voice, manage memory and troubleshoot.">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><canvas class="brand-mark" id="mark-canvas" aria-hidden="true"></canvas><span class="brand-name">Vigrel</span></a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <div class="nav-links">
+      <a href="index.html">Overview</a>
+      <a href="features.html">Features</a>
+      <a href="models.html">Models</a>
+      <a href="security.html">Privacy</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="download.html">Download</a>
+      <a href="docs.html" aria-current="page">Docs</a>
+      <a class="btn small nav-cta" href="download.html">Start trial</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" style="padding:0">
+    <div class="wrap" style="padding:78px 0 54px;position:relative;z-index:2">
+      <p class="eyebrow">Documentation</p>
+      <h1>Ten minutes to a working <em>operator</em>.</h1>
+      <p class="lede" style="margin-top:18px">Install, choose a model that fits, grant the microphone, and start talking.
+        Everything below works without a network connection once the model is on disk.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="grid-2">
+        <div>
+          <p class="eyebrow">Install</p>
+          <h2>macOS</h2>
+          <div class="plate" style="margin-bottom:18px"><div class="plate-body term">
+            <div>1. Open <b>Vigrel-1.0.0-mac-arm64.dmg</b></div>
+            <div>2. Drag Vigrel to Applications</div>
+            <div>3. First launch: right-click → Open (builds are ad-hoc signed)</div>
+            <div>4. Choose a model tier; the weights download once</div>
+            <div>5. Grant microphone access when asked</div>
+          </div></div>
+
+          <h2>Windows</h2>
+          <div class="plate" style="margin-bottom:18px"><div class="plate-body term">
+            <div>1. Run <b>Vigrel-1.0.0-setup-x64.exe</b></div>
+            <div>2. SmartScreen: More info → Run anyway (unsigned beta)</div>
+            <div>3. Launch Vigrel, choose a model tier</div>
+            <div>4. Allow microphone access in Windows privacy settings</div>
+          </div></div>
+
+          <h2>Linux</h2>
+          <div class="plate"><div class="plate-body term">
+            <div>chmod +x Vigrel-1.0.0-linux-x86_64.AppImage</div>
+            <div>./Vigrel-1.0.0-linux-x86_64.AppImage</div>
+            <div># FUSE missing? install libfuse2, or run with --appimage-extract-and-run</div>
+          </div></div>
+        </div>
+
+        <div>
+          <p class="eyebrow">First run</p>
+          <h2>What the app does</h2>
+          <ul class="faq" style="border:0">
+            <li style="list-style:none;padding:7px 0;color:var(--muted)">Starts a local brain on <span class="mono">127.0.0.1:28090</span>.</li>
+            <li style="list-style:none;padding:7px 0;color:var(--muted)">Starts speech services on <span class="mono">:28100</span> and <span class="mono">:28120</span>.</li>
+            <li style="list-style:none;padding:7px 0;color:var(--muted)">Creates <span class="mono">~/.jarvis</span> for memory and logs.</li>
+            <li style="list-style:none;padding:7px 0;color:var(--muted)">Leaves the microphone off until you switch it on.</li>
+            <li style="list-style:none;padding:7px 0;color:var(--muted)">Makes no outbound connection.</li>
+          </ul>
+
+          <h2 style="margin-top:30px">Voice</h2>
+          <p class="sub">Click the mic to listen; click again to stop. While Vigrel speaks it ducks its own
+            input, then resumes. End-of-speech is detected at 700 ms.</p>
+          <div class="plate"><div class="plate-body term">
+            <div><span class="ok">MIC ON</span>  listening · device default input</div>
+            <div><span class="warn">MIC OFF</span> silent · stream kept warm, not closed</div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="data">
+    <div class="wrap">
+      <p class="eyebrow">Your data</p>
+      <h2>Where it lives, and how to remove it</h2>
+      <div class="plate" style="margin-top:24px"><div class="plate-body term">
+        <div>~/.jarvis/long_term_memory.db&nbsp;&nbsp;<span style="color:var(--muted-2)">facts, sessions, projects</span></div>
+        <div>~/.jarvis/logs/&nbsp;&nbsp;<span style="color:var(--muted-2)">application logs, no transcript archive</span></div>
+        <div>~/.jarvis/models/&nbsp;&nbsp;<span style="color:var(--muted-2)">weights you downloaded</span></div>
+        <div>~/.jarvis/voice.json&nbsp;&nbsp;<span style="color:var(--muted-2)">your chosen voice</span></div>
+        <div style="margin-top:10px"># inspect</div>
+        <div>sqlite3 ~/.jarvis/long_term_memory.db ".tables"</div>
+        <div style="margin-top:10px"># erase everything</div>
+        <div>rm -rf ~/.jarvis</div>
+      </div></div>
+      <p class="small" style="margin-top:14px">Deleting that directory removes memory, preferences and models. There is no
+        server-side copy to request.</p>
+    </div>
+  </section>
+
+  <section id="troubleshooting">
+    <div class="wrap">
+      <p class="eyebrow">Troubleshooting</p>
+      <h2>When something is quiet</h2>
+      <div class="faq" style="margin-top:20px">
+        <details open>
+          <summary>The mic is on but it does not hear me</summary>
+          <p>Check the microphone indicator in the window: if it shows listening and the level bars are flat,
+             the OS may have withheld the input device. Quit and relaunch Vigrel; if the log says the audio
+             service could not start a stream, restart the machine's audio daemon
+             (<span class="mono">sudo killall coreaudiod</span> on macOS) and relaunch.</p>
+        </details>
+        <details>
+          <summary>Replies are silent, or a different voice speaks</summary>
+          <p>The system voice is the fallback when the audio device cannot start a stream. On macOS this
+             usually means wired-memory pressure from a large model. Move down a model tier, or close other
+             GPU-heavy applications.</p>
+        </details>
+        <details>
+          <summary>macOS says the app is damaged or from an unidentified developer</summary>
+          <p>Builds are ad-hoc signed during the beta. Right-click the app → Open, or
+             <span class="mono">xattr -dr com.apple.quarantine /Applications/Vigrel.app</span>. Notarised
+             builds are the next milestone.</p>
+        </details>
+        <details>
+          <summary>The AppImage will not start on Linux</summary>
+          <p>Install FUSE 2 (<span class="mono">libfuse2</span>) or run
+             <span class="mono">./Vigrel-*.AppImage --appimage-extract-and-run</span>.</p>
+        </details>
+        <details>
+          <summary>It is slower than the numbers on this site</summary>
+          <p>The published figures are from an M1 Max with 32 GB at 4K context. Machines with less memory
+             bandwidth, or a model sharing memory with a browser, will be slower. Measure with the same
+             prompt before assuming a fault.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="trial">
+    <div class="wrap">
+      <p class="eyebrow">Trial and licence</p>
+      <h2>Thirty days, then your choice</h2>
+      <div class="grid-2" style="margin-top:26px">
+        <div class="card">
+          <h3>Starting</h3>
+          <p>The trial begins the first time you launch Vigrel: 30 days of Pro features, no card, no account
+             beyond an email. Nothing is charged automatically.</p>
+        </div>
+        <div class="card">
+          <h3>Ending</h3>
+          <p>If you do not subscribe, the app goes read-only. Memory, documents and exports stay available;
+             voice, builds and the large model pause. Nothing is deleted.</p>
+        </div>
+        <div class="card">
+          <h3>Offline</h3>
+          <p>The licence is a signed file verified on the machine, with a 14-day offline grace period. An
+             air-gapped site activates from a file you carry in — no phone-home.</p>
+        </div>
+        <div class="card">
+          <h3>After two years</h3>
+          <p>After 24 consecutive months of subscription, the build you have is yours permanently. No further
+             payment and no check-in requirement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cloud">
+    <div class="wrap">
+      <p class="eyebrow">Cloud add-on</p>
+      <h2>When local is not enough</h2>
+      <p class="sub">The add-on moves compute, not storage. Your memory file stays on the device; only the
+        current turn's prompt is transmitted. It falls back to the local model when the network is down.</p>
+      <div class="note">
+        <strong>Status: early access.</strong> The client switch is implemented; the hosted service is being
+        built. Join the early-access list from the pricing page and you will be invited before public
+        availability.
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><canvas class="brand-mark" aria-hidden="true"></canvas><span class="brand-name">Vigrel</span></a>
+        <p class="small" style="margin-top:14px;max-width:34ch">A private AI operator. Local inference, local memory, local speech.</p>
+      </div>
+      <div><h4>Product</h4><a href="features.html">Features</a><a href="models.html">Models &amp; specs</a><a href="pricing.html">Pricing</a><a href="download.html">Download</a></div>
+      <div><h4>Trust</h4><a href="security.html">Privacy architecture</a><a href="docs.html#security">Security notes</a><a href="docs.html#data">Your data</a></div>
+      <div><h4>Resources</h4><a href="docs.html">Documentation</a><a href="models.html#requirements">Requirements</a><a href="docs.html#troubleshooting">Troubleshooting</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Vigrel. Pre-release software.</span><span>No cookies are set by this site.</span></div>
+  </div>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/mark-viz.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
