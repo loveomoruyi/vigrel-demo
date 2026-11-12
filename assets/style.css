@@ -359,3 +359,12 @@ footer { padding: 54px 0 40px; color: var(--muted-2); font-size: .85rem; }
 .plan.featured .btn { background: var(--gold); color: #171208; border-color: transparent; }
 .plan.featured .btn:hover { background: #e6b972; }
 .plan-badge { background: var(--cyan); color: #04121a; box-shadow: 0 0 24px rgba(90,210,240,.35); }
+
+/* spec check fields */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted-2); }
+.field select, .field input {
+  background: #060b11; border: 1px solid rgba(255,255,255,.12); border-radius: 10px;
+  color: var(--text); padding: 10px 12px; font: inherit; width: 100%;
+}
+.field select:focus, .field input:focus { outline: none; border-color: rgba(90,210,240,.55); }

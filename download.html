@@ -4,7 +4,6 @@
 <script>document.documentElement.classList.add('js');</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>Download — Vigrel</title>
 <meta name="description" content="Download Vigrel for macOS, Windows and Linux. Version 1.0.0 beta, with checksums and install notes.">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
@@ -42,6 +41,25 @@
 
   <section id="platforms" style="padding-top:52px">
     <div class="wrap">
+  <section id="spec-check">
+    <div class="wrap">
+      <p class="eyebrow">Before you download</p>
+      <h2>Will it run on this machine?</h2>
+      <p class="sub">Tell us the memory you have; the rest is detected. Nothing is sent anywhere.</p>
+      <div class="card" style="margin-top:18px;max-width:780px">
+        <div class="grid g3">
+          <div class="field"><label for="sc-ram">Memory</label>
+            <select id="sc-ram"><option value="8">8 GB</option><option value="16" selected>16 GB</option>
+              <option value="24">24 GB</option><option value="32">32 GB</option><option value="64">64 GB</option></select></div>
+          <div class="field"><label for="sc-disk">Free disk (GB, optional)</label>
+            <input id="sc-disk" type="number" min="1" placeholder="e.g. 120"></div>
+          <div class="field"><label>Detected</label><span id="sc-os" class="small">checking…</span></div>
+        </div>
+        <div id="sc-out" style="margin-top:20px"></div>
+      </div>
+    </div>
+  </section>
+
       <div class="dl-grid">
 
         <div class="dl-card ready">
@@ -54,7 +72,7 @@
             <span>107.4 MB · .dmg</span>
             <code>sha256 67681336a76f43dcc83918580d81b6d4571a154f73a354f21a898bebb1a2eb56</code>
           </div>
-          <a class="btn" href="https://github.com/loveomoruyi/vigrel-demo/releases/download/v1.0.0/Vigrel-1.0.0-mac-arm64.dmg" download>Download for macOS</a>
+          <a class="btn" href="downloads/Vigrel-1.0.0-mac-arm64.dmg" download>Download for macOS</a>
           <p class="small">Unsigned beta: right-click → Open on first launch, or clear the quarantine flag (see docs).</p>
         </div>
 
@@ -70,8 +88,8 @@
             <code>sha256 3006d73a504b0c166a17761f3da2fa867f36c5082abfd6d5e768ad48a7099c12</code>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <a class="btn ghost" href="https://github.com/loveomoruyi/vigrel-demo/releases/download/v1.0.0/Vigrel-1.0.0-setup-x64.exe" download>Download x64</a>
-            <a class="btn ghost small" href="https://github.com/loveomoruyi/vigrel-demo/releases/download/v1.0.0/Vigrel-1.0.0-setup-arm64.exe" download>ARM64</a>
+            <a class="btn ghost" href="downloads/Vigrel-1.0.0-setup-x64.exe" download>Download x64</a>
+            <a class="btn ghost small" href="downloads/Vigrel-1.0.0-setup-arm64.exe" download>ARM64</a>
           </div>
           <p class="small">Beta: the engine runtime is macOS-first. Expect rough edges; report them and they get fixed.</p>
         </div>
@@ -88,8 +106,8 @@
             <code>sha256 23c855607e65d357a63f5e5a71bd648a19ffc3fd02c8ab44c25b4d5bf464a96c</code>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <a class="btn ghost" href="https://github.com/loveomoruyi/vigrel-demo/releases/download/v1.0.0/Vigrel-1.0.0-linux-x86_64.AppImage" download>Download x86-64</a>
-            <a class="btn ghost small" href="https://github.com/loveomoruyi/vigrel-demo/releases/download/v1.0.0/Vigrel-1.0.0-linux-arm64.AppImage" download>ARM64</a>
+            <a class="btn ghost" href="downloads/Vigrel-1.0.0-linux-x86_64.AppImage" download>Download x86-64</a>
+            <a class="btn ghost small" href="downloads/Vigrel-1.0.0-linux-arm64.AppImage" download>ARM64</a>
           </div>
           <p class="small">Beta. <span class="mono">chmod +x</span> then run. Needs FUSE 2 for the AppImage.</p>
         </div>
@@ -163,6 +181,7 @@
 </footer>
 
 <script src="assets/config.js"></script>
+<script src="assets/spec-check.js"></script>
 <script src="assets/mark-viz.js"></script>
 <script src="assets/site.js"></script>
 </body>
