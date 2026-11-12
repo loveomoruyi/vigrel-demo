@@ -17,11 +17,27 @@
   var diskEl = root.querySelector("#sc-disk");
   var out = root.querySelector("#sc-out");
 
+  // platform strings lie: Chrome on an M1 still reports "MacIntel". The WebGL
+  // renderer is the only reliable signal a browser will give us.
+  function appleSilicon() {
+    try {
+      var c = document.createElement("canvas");
+      var gl = c.getContext("webgl") || c.getContext("experimental-webgl");
+      if (!gl) return null;
+      var dbg = gl.getExtension("WEBGL_debug_renderer_info");
+      var r = String(dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER) || "");
+      if (/Apple\s*(M\d|GPU)/i.test(r)) return true;
+      if (/Intel|AMD|Radeon|NVIDIA/i.test(r)) return false;
+    } catch (e) {}
+    return null;
+  }
+
   function detectOS() {
     var ua = navigator.userAgent || "";
     var plat = navigator.platform || "";
     if (/Mac/i.test(plat) || /Mac OS X/i.test(ua)) {
-      return { key: "mac", name: "macOS", arm: /arm64|aarch64/i.test(ua) || plat === "MacIntel" && navigator.maxTouchPoints > 1 };
+      var sil = appleSilicon();
+      return { key: "mac", name: "macOS", arm: sil === true, intel: sil === false };
     }
     if (/Win/i.test(plat) || /Windows/i.test(ua)) return { key: "win", name: "Windows", arm: /ARM64|arm64/i.test(ua) };
     if (/Linux/i.test(plat) || /Linux/i.test(ua)) return { key: "linux", name: "Linux", arm: /aarch64|arm64/i.test(ua) };
@@ -43,7 +59,7 @@
 
     if (osEl) osEl.textContent = os.name + (os.arm ? " · ARM64" : "");
 
-    if (os.key === "mac" && !os.arm) {
+    if (os.key === "mac" && os.intel) {
       warn.push("Intel Macs aren't supported by the current build — it is Apple Silicon only.");
     }
     if (ram < 16) {
