@@ -15,6 +15,11 @@
     document.querySelectorAll("[data-account-link]").forEach(function (a) {
       a.href = accountUrl + (a.getAttribute("data-account-link") || "/login");
     });
+    var checkoutUrl = String(CFG.checkoutUrl || "").replace(/\/$/, "");
+    document.querySelectorAll("[data-checkout]").forEach(function (a) {
+      if (!checkoutUrl) { a.remove(); return; }
+      a.href = checkoutUrl + "/buy/" + a.getAttribute("data-checkout");
+    });
     var nav = document.querySelector(".nav-links");
     if (nav && !nav.querySelector(".nav-signin")) {
       var signin = document.createElement("a");

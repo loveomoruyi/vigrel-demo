@@ -368,3 +368,7 @@ footer { padding: 54px 0 40px; color: var(--muted-2); font-size: .85rem; }
   color: var(--text); padding: 10px 12px; font: inherit; width: 100%;
 }
 .field select:focus, .field input:focus { outline: none; border-color: rgba(90,210,240,.55); }
+
+.tiny-link { display: block; margin-top: 10px; font-size: .76rem; color: var(--muted-2);
+  text-align: center; text-decoration: underline; text-underline-offset: 3px; }
+.tiny-link:hover { color: var(--text); }
