@@ -3,8 +3,8 @@
 <head>
 <script>document.documentElement.classList.add('js');</script>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Documentation — Vigrel</title>
 <meta name="description" content="Install Vigrel on macOS, Windows and Linux, choose a model tier, use voice, manage memory and troubleshoot.">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
@@ -46,25 +46,28 @@
           <p class="eyebrow">Install</p>
           <h2>macOS</h2>
           <div class="plate" style="margin-bottom:18px"><div class="plate-body term">
-            <div>1. Open <b>Vigrel-1.0.0-mac-arm64.dmg</b></div>
+            <div>1. Open <b>Vigrel-1.0.1-mac-arm64.dmg</b></div>
             <div>2. Drag Vigrel to Applications</div>
-            <div>3. First launch: right-click → Open (builds are ad-hoc signed)</div>
-            <div>4. Choose a model tier; the weights download once</div>
-            <div>5. Grant microphone access when asked</div>
+            <div>3. First launch: System Settings → Privacy &amp; Security → <b>Open Anyway</b></div>
+            <div>&nbsp;&nbsp;&nbsp;<span style="color:var(--muted-2)">(older macOS: right-click → Open; or <span class="mono">xattr -dr com.apple.quarantine /Applications/Vigrel.app</span>)</span></div>
+            <div>4. The setup window downloads the runtime, then your model (5–22 GB)</div>
+            <div>5. Keep <b>Set up voice</b> ticked (about 1 GB) for speech in and out</div>
+            <div>6. Grant microphone access when asked</div>
           </div></div>
 
           <h2>Windows</h2>
           <div class="plate" style="margin-bottom:18px"><div class="plate-body term">
-            <div>1. Run <b>Vigrel-1.0.0-setup-x64.exe</b></div>
+            <div>1. Run <b>Vigrel-1.0.1-setup-x64.exe</b> (or the arm64 build on Snapdragon laptops)</div>
             <div>2. SmartScreen: More info → Run anyway (unsigned beta)</div>
-            <div>3. Launch Vigrel, choose a model tier</div>
-            <div>4. Allow microphone access in Windows privacy settings</div>
+            <div>3. The setup window downloads the runtime, then your model (5–22 GB)</div>
+            <div>4. Keep <b>Set up voice</b> ticked (about 1 GB) — speech runs on your CPU</div>
+            <div>5. Allow microphone access in Windows privacy settings</div>
           </div></div>
 
           <h2>Linux</h2>
           <div class="plate"><div class="plate-body term">
-            <div>chmod +x Vigrel-1.0.0-linux-x86_64.AppImage</div>
-            <div>./Vigrel-1.0.0-linux-x86_64.AppImage</div>
+            <div>chmod +x Vigrel-1.0.1-linux-x86_64.AppImage</div>
+            <div>./Vigrel-1.0.1-linux-x86_64.AppImage</div>
             <div># FUSE missing? install libfuse2, or run with --appimage-extract-and-run</div>
           </div></div>
         </div>
@@ -74,7 +77,8 @@
           <h2>What the app does</h2>
           <ul class="faq" style="border:0">
             <li style="list-style:none;padding:7px 0;color:var(--muted)">Starts a local brain on <span class="mono">127.0.0.1:28090</span>.</li>
-            <li style="list-style:none;padding:7px 0;color:var(--muted)">Starts speech services on <span class="mono">:28100</span> and <span class="mono">:28120</span>.</li>
+            <li style="list-style:none;padding:7px 0;color:var(--muted)">Starts speech services on <span class="mono">127.0.0.1:28100</span> (voice) and <span class="mono">:28110</span> (transcription).</li>
+            <li style="list-style:none;padding:7px 0;color:var(--muted)">First run downloads a python runtime (~40 MB), your model (5–22 GB) and the optional voice pack (~1 GB). All of it stays on disk.</li>
             <li style="list-style:none;padding:7px 0;color:var(--muted)">Creates <span class="mono">~/.jarvis</span> for memory and logs.</li>
             <li style="list-style:none;padding:7px 0;color:var(--muted)">Leaves the microphone off until you switch it on.</li>
             <li style="list-style:none;padding:7px 0;color:var(--muted)">Makes no outbound connection.</li>
@@ -116,6 +120,12 @@
       <p class="eyebrow">Troubleshooting</p>
       <h2>When something is quiet</h2>
       <div class="faq" style="margin-top:20px">
+        <details>
+          <summary>Voice input does nothing at all</summary>
+          <p>Transcription needs the voice pack offered during first-run setup (about 1 GB). If it was
+             skipped, voice input stays off — typing works normally. Ask the Vigrel team for the voice-pack
+             installer and send your diagnostics file so we can see which piece is missing.</p>
+        </details>
         <details open>
           <summary>The mic is on but it does not hear me</summary>
           <p>Check the microphone indicator in the window: if it shows listening and the level bars are flat,
@@ -131,7 +141,9 @@
         </details>
         <details>
           <summary>macOS says the app is damaged or from an unidentified developer</summary>
-          <p>Builds are ad-hoc signed during the beta. Right-click the app → Open, or
+          <p>Builds are ad-hoc signed during the beta. On macOS 15 and later, open
+             System Settings → Privacy &amp; Security and choose <b>Open Anyway</b> after the first blocked
+             launch (right-click → Open still works on older macOS), or run
              <span class="mono">xattr -dr com.apple.quarantine /Applications/Vigrel.app</span>. Notarised
              builds are the next milestone.</p>
         </details>
@@ -203,7 +215,7 @@
       </div>
       <div><h4>Product</h4><a href="features.html">Features</a><a href="models.html">Models &amp; specs</a><a href="pricing.html">Pricing</a><a href="download.html">Download</a></div>
       <div><h4>Trust</h4><a href="security.html">Privacy architecture</a><a href="docs.html#security">Security notes</a><a href="docs.html#data">Your data</a></div>
-      <div><h4>Resources</h4><a href="docs.html">Documentation</a><a href="models.html#requirements">Requirements</a><a href="docs.html#troubleshooting">Troubleshooting</a></div>
+      <div><h4>Resources</h4><a href="docs.html">Documentation</a><a href="models.html#requirements">Requirements</a><a href="docs.html#troubleshooting">Troubleshooting</a><a data-support-link href="#">Report a problem</a></div>
     </div>
     <div class="foot-bottom"><span>© 2026 Vigrel. Pre-release software.</span><span>No cookies are set by this site.</span></div>
   </div>

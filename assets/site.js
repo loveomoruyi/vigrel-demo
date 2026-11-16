@@ -11,15 +11,30 @@
   // The account service is a separate origin; one config value points at it.
   var CFG = window.VIGREL_CONFIG || {};
   var accountUrl = String(CFG.accountUrl || "").replace(/\/$/, "");
+  var checkoutUrl = String(CFG.checkoutUrl || "").replace(/\/$/, "");
+  // A deployment with no checkout (the public demo) must not leave dead
+  // "subscribe" links behind.
+  if (!checkoutUrl) {
+    document.querySelectorAll("[data-checkout]").forEach(function (a) { a.remove(); });
+  }
+  // "Report a problem" links: shown only when a real address is configured.
+  var supportEmail = String(CFG.supportEmail || "").trim();
+  if (supportEmail) {
+    document.querySelectorAll("[data-support-link]").forEach(function (a) {
+      a.href = "mailto:" + supportEmail + "?subject=Vigrel%20pilot%20feedback";
+    });
+  } else {
+    document.querySelectorAll("[data-support-link]").forEach(function (a) { a.remove(); });
+  }
   if (accountUrl) {
     document.querySelectorAll("[data-account-link]").forEach(function (a) {
       a.href = accountUrl + (a.getAttribute("data-account-link") || "/login");
     });
-    var checkoutUrl = String(CFG.checkoutUrl || "").replace(/\/$/, "");
-    document.querySelectorAll("[data-checkout]").forEach(function (a) {
-      if (!checkoutUrl) { a.remove(); return; }
-      a.href = checkoutUrl + "/buy/" + a.getAttribute("data-checkout");
-    });
+    if (checkoutUrl) {
+      document.querySelectorAll("[data-checkout]").forEach(function (a) {
+        a.href = checkoutUrl + "/buy/" + a.getAttribute("data-checkout");
+      });
+    }
     var nav = document.querySelector(".nav-links");
     if (nav && !nav.querySelector(".nav-signin")) {
       var signin = document.createElement("a");
