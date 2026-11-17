@@ -1,0 +1,25 @@
+<Configuration>
+  <!-- Vigrel pilot — run the installer in a disposable Windows Sandbox.
+       How to use:
+         1. Keep the Vigrel installer and this file together in your Downloads folder.
+         2. Double-click this file (Windows Pro / Enterprise / Education only).
+         3. A fresh Windows opens with your Downloads folder attached read-only and
+            the microphone shared through. Install Vigrel there and try it.
+         4. Close the sandbox window when done — everything inside is discarded.
+       If your installer is not in Downloads, edit the HostFolder line below to its
+       folder (an absolute path, e.g. C:\Users\you\Desktop). -->
+  <VGpu>Disable</VGpu>
+  <Networking>Default</Networking>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>%USERPROFILE%\Downloads</HostFolder>
+      <SandboxFolder>C:\Users\WDAGUtilityAccount\Desktop\Downloads</SandboxFolder>
+      <ReadOnly>true</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+  <LogonCommand>
+    <Command>explorer.exe C:\Users\WDAGUtilityAccount\Desktop\Downloads</Command>
+  </LogonCommand>
+  <AudioInput>Enable</AudioInput>
+  <MemoryInMB>12288</MemoryInMB>
+</Configuration>

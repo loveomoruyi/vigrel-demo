@@ -37,6 +37,7 @@
       <p class="lede" style="margin-top:18px">Three platforms, one engine. The application is the same everywhere; the model is chosen
         on first run to fit your hardware.</p>
       <p class="small" style="margin-top:14px">Your 30-day trial of Vigrel Pro starts on first launch — no card, no account beyond an email.</p>
+      <p class="small" style="margin-top:6px"><a href="#trust" style="text-decoration:underline;text-underline-offset:3px">Is this safe to install? Honest answers →</a></p>
     </div>
   </section>
 
@@ -121,6 +122,46 @@
         installed during first-run setup (speech runs on your CPU). Treat them as pilot builds: verify the
         checksum above before running, and report what breaks.
       </div>
+    </div>
+  </section>
+
+  <section id="trust">
+    <div class="wrap">
+      <p class="eyebrow">Before you run it</p>
+      <h2>Is this safe to install?</h2>
+      <p class="sub">Fair question — it is an unsigned app from a small independent project, which is exactly the pattern you should be suspicious of. Here is the honest accounting, and how to check it yourself.</p>
+      <div class="grid-2" style="margin-top:26px">
+        <div class="card">
+          <h3>What it asks for</h3>
+          <ul class="faq" style="border:0">
+            <li style="list-style:none;padding:6px 0;color:var(--muted)">Microphone access — only when you switch voice on.</li>
+            <li style="list-style:none;padding:6px 0;color:var(--muted)">Disk space — 1–23 GB, for the model and voice pack you choose in setup.</li>
+            <li style="list-style:none;padding:6px 0;color:var(--muted)">A local server on <span class="mono">127.0.0.1</span> — reachable only from your own machine.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What it never does</h3>
+          <ul class="faq" style="border:0">
+            <li style="list-style:none;padding:6px 0;color:var(--muted)">No telemetry, no analytics, no account required for the trial.</li>
+            <li style="list-style:none;padding:6px 0;color:var(--muted)">Your conversations, memory and files are never uploaded.</li>
+            <li style="list-style:none;padding:6px 0;color:var(--muted)">The only network access is the one-time downloads you start yourself in setup.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h3>The test that settles it</h3>
+        <p>Finish setup, then <b>turn off Wi-Fi</b> (or unplug the cable) and keep talking to it. It keeps working — the model runs on your machine, not someone else's server. You can also watch it in Task Manager (Windows) or Activity Monitor (macOS): after setup it talks only to <span class="mono">127.0.0.1</span>.</p>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h3>Why your computer will warn you</h3>
+        <p>This build is not signed with a commercial code-signing certificate yet — that is a paid, registered-company milestone and the next thing on the list. So: Windows will show <b>“Windows protected your PC”</b> → <b>More info → Run anyway</b>. macOS 15+ shows “Apple cannot check it” → <b>System Settings → Privacy &amp; Security → Open Anyway</b>. That warning is about the app's <em>identity</em>, not about detected malware — and you do not have to trust our word either: verify the SHA-256 above with one command before running anything.</p>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h3>Extra cautious? Run it in a disposable Windows PC</h3>
+        <p>Windows Pro and Enterprise include <b>Windows Sandbox</b> — a throwaway Windows that vanishes when you close its window. Download our ready-made config (<span class="mono">vigrel-sandbox.wsb</span>, 1 KB), keep it next to the installer in your Downloads folder, and double-click it. A fresh Windows opens with your Downloads folder attached read-only and the microphone shared through, so voice works. Install Vigrel in there, try everything, then close the window — nothing it did survives. Notes: Windows Home does not include Sandbox (use the offline test above instead); the model re-downloads on each sandbox session; virtualization must be enabled in your PC's firmware.</p>
+        <a class="btn ghost small" href="assets/vigrel-sandbox.wsb" download>Download vigrel-sandbox.wsb</a>
+      </div>
+      <p class="small" style="margin-top:16px">Vigrel is built by one independent developer, not a company you have heard of — which is exactly why it deserves this scrutiny. If you would rather not run a beta, that is a completely reasonable call.</p>
     </div>
   </section>
 
