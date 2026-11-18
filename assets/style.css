@@ -384,22 +384,39 @@ footer { padding: 54px 0 40px; color: var(--muted-2); font-size: .85rem; }
 .tiny-link:hover { color: var(--text); }
 
 
-/* --- Campaign line: hero claim (sheen + scan) + site ticker (2026-11-17) --- */
+/* --- Campaign line: hero claim (decode-in + sheen + halo) + site ticker (2026-11-17) --- */
 /* Robust by design: every effect degrades to a fully readable static state.
    No effect depends on an animation completing, and nothing is ever blurred. */
-.hero-claim { position: relative; }
+.hero-claim { position: relative; font-size: 19px; }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
   .js .hero-claim {
-    background: linear-gradient(100deg, var(--gold) 0%, var(--gold) 30%, #f6e3b8 48%, var(--gold) 66%, var(--gold) 100%);
-    background-size: 280% 100%;
+    background: linear-gradient(100deg, var(--gold) 0%, var(--gold) 34%, #fff4dd 47%, #ffe9bd 51%, var(--gold) 64%, var(--gold) 100%);
+    background-size: 240% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
-    animation: claim-sheen 8s linear infinite;
+    animation: claim-sheen 5.5s linear infinite;
   }
 }
-@keyframes claim-sheen { from { background-position: 110% 0; } to { background-position: -10% 0; } }
+@keyframes claim-sheen { from { background-position: 120% 0; } to { background-position: -20% 0; } }
+/* blinking cursor while the line decodes */
+.js .hero-claim.decoding::before {
+  content: "\258C";
+  margin-right: .1em;
+  color: var(--gold);
+  -webkit-text-fill-color: var(--gold);
+  animation: cursor-blink .9s steps(1) infinite;
+}
+@keyframes cursor-blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+/* after the decode: sheen + a breathing halo so it stays alive */
+.js .hero-claim.decoded {
+  animation: claim-sheen 5.5s linear infinite, claim-halo 8s ease-in-out infinite;
+}
+@keyframes claim-halo {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(217, 169, 95, .16)); }
+  50% { filter: drop-shadow(0 0 22px rgba(217, 169, 95, .42)) drop-shadow(0 0 44px rgba(90, 210, 240, .12)); }
+}
 .hero-claim::after {
   content: "";
   display: block;

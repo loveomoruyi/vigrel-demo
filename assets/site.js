@@ -153,7 +153,50 @@
       document.body.classList.add("has-ticker");
     }
 
-    // The hero claim's sheen + scan are pure CSS (robust when animations are
-    // frozen: the text stays fully readable). Nothing to build here.
+  } catch (e) { /* decoration only — never break the page */ }
+})();
+
+// ---- Hero claim: decode-in reveal (scramble then resolve, left to right) ----
+(function () {
+  try {
+    var claim = document.querySelector(".hero-claim");
+    if (!claim) return;
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+    var finalText = claim.textContent.trim();
+    if (!finalText) return;
+    claim.setAttribute("aria-label", finalText);
+    var vis = document.createElement("span");
+    vis.setAttribute("aria-hidden", "true");
+    claim.textContent = "";
+    claim.appendChild(vis);
+    claim.classList.add("decoding");
+    var glyphs = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz0123456789/#*<>\u2014";
+    var total = finalText.length;
+    var finish = function () {
+      vis.textContent = finalText;
+      claim.classList.remove("decoding");
+      claim.classList.add("decoded");
+    };
+    var scramble = function (resolvedCount) {
+      var out = "";
+      for (var i = 0; i < total; i++) {
+        var ch = finalText.charAt(i);
+        out += (i < resolvedCount || ch === " ") ? ch : glyphs.charAt((Math.random() * glyphs.length) | 0);
+      }
+      return out;
+    };
+    vis.textContent = scramble(0); // first paint: full scramble, never empty
+    var start = null;
+    var DUR = 1400; // resolves in ~1.4s of visible time (rAF pauses while hidden)
+    var frame = function (t) {
+      if (start === null) start = t;
+      var p = Math.min(1, (t - start) / DUR);
+      vis.textContent = scramble(Math.floor(p * total));
+      if (p < 1) { window.requestAnimationFrame(frame); } else { finish(); }
+    };
+    window.requestAnimationFrame(frame);
+    // safety net: whatever happens, the real line always lands
+    window.setTimeout(function () { if (!claim.classList.contains("decoded")) finish(); }, 4200);
   } catch (e) { /* decoration only — never break the page */ }
 })();
