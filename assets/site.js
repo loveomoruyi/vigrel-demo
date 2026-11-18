@@ -128,3 +128,32 @@
     items.forEach(function (el) { el.classList.add("in"); });
   }, 2500);
 })();
+
+
+// ---- Campaign line: site-wide ticker + hero claim assembly (2026-11-17) ----
+(function () {
+  try {
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Site-wide ticker band along the bottom of every page.
+    if (!document.querySelector(".vigrel-ticker")) {
+      var line = "Your AI. Your machine. Nobody else\u2019s business.";
+      var bar = document.createElement("div");
+      bar.className = "vigrel-ticker";
+      bar.setAttribute("aria-hidden", "true");
+      var track = document.createElement("div");
+      track.className = "tk-track";
+      var chunk = "";
+      for (var i = 0; i < 8; i++) {
+        chunk += '<span class="tk-item">' + line + '</span><span class="tk-sep">\u25C6</span>';
+      }
+      track.innerHTML = chunk + chunk; // duplicated so the -50% loop is seamless
+      bar.appendChild(track);
+      document.body.appendChild(bar);
+      document.body.classList.add("has-ticker");
+    }
+
+    // The hero claim's sheen + scan are pure CSS (robust when animations are
+    // frozen: the text stays fully readable). Nothing to build here.
+  } catch (e) { /* decoration only — never break the page */ }
+})();
