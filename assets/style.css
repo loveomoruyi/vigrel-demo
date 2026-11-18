@@ -384,48 +384,43 @@ footer { padding: 54px 0 40px; color: var(--muted-2); font-size: .85rem; }
 .tiny-link:hover { color: var(--text); }
 
 
-/* --- Campaign line: hero claim (decode-in + sheen + halo) + site ticker (2026-11-17) --- */
+/* --- Campaign line: hero claim (sheen + halo) + hairline light + site ticker (2026-11-17) --- */
 /* Robust by design: every effect degrades to a fully readable static state.
-   No effect depends on an animation completing, and nothing is ever blurred. */
+   Nothing depends on an animation completing; nothing is ever blurred. */
 .hero-claim { position: relative; font-size: 19px; }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
   .js .hero-claim {
-    background: linear-gradient(100deg, var(--gold) 0%, var(--gold) 34%, #fff4dd 47%, #ffe9bd 51%, var(--gold) 64%, var(--gold) 100%);
-    background-size: 240% 100%;
+    background: linear-gradient(100deg, var(--gold) 0%, var(--gold) 26%, #fff4dd 44%, #ffe9bd 50%, #fff4dd 56%, var(--gold) 74%, var(--gold) 100%);
+    background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
-    animation: claim-sheen 5.5s linear infinite;
+    animation: claim-sheen 6.5s linear infinite, claim-halo 9s ease-in-out infinite;
   }
 }
-@keyframes claim-sheen { from { background-position: 120% 0; } to { background-position: -20% 0; } }
-/* blinking cursor while the line decodes */
-.js .hero-claim.decoding::before {
-  content: "\258C";
-  margin-right: .1em;
-  color: var(--gold);
-  -webkit-text-fill-color: var(--gold);
-  animation: cursor-blink .9s steps(1) infinite;
-}
-@keyframes cursor-blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
-/* after the decode: sheen + a breathing halo so it stays alive */
-.js .hero-claim.decoded {
-  animation: claim-sheen 5.5s linear infinite, claim-halo 8s ease-in-out infinite;
-}
+@keyframes claim-sheen { from { background-position: 130% 0; } to { background-position: -30% 0; } }
 @keyframes claim-halo {
-  0%, 100% { filter: drop-shadow(0 0 10px rgba(217, 169, 95, .16)); }
-  50% { filter: drop-shadow(0 0 22px rgba(217, 169, 95, .42)) drop-shadow(0 0 44px rgba(90, 210, 240, .12)); }
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(217, 169, 95, .15)); }
+  50% { filter: drop-shadow(0 0 20px rgba(217, 169, 95, .40)) drop-shadow(0 0 42px rgba(90, 210, 240, .12)); }
 }
+/* the hairline beneath: gold melting into cyan, with a soft light travelling along it */
 .hero-claim::after {
   content: "";
   display: block;
   height: 1px;
   width: 78%;
   margin-top: 12px;
-  background: linear-gradient(90deg, var(--gold), var(--cyan) 45%, rgba(90, 210, 240, .35) 80%, transparent);
+  background-image:
+    linear-gradient(90deg, transparent 30%, rgba(255, 246, 224, .95) 50%, transparent 70%),
+    linear-gradient(90deg, var(--gold), var(--cyan) 45%, rgba(90, 210, 240, .35) 80%, transparent);
+  background-size: 200% 100%, 100% 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-position: 140% 0, 0 0;
   opacity: .95;
+  animation: rule-light 4.5s linear infinite;
 }
+@keyframes rule-light { from { background-position: 140% 0, 0 0; } to { background-position: -40% 0, 0 0; } }
 
 .vigrel-ticker {
   position: fixed; left: 0; right: 0; bottom: 0; height: 36px; z-index: 55;
